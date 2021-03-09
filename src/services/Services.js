@@ -9,18 +9,31 @@ class Services {
         this.getDefaultTable = this.getDefaultTable.bind(this)
     }
 
-    async getDefaultTable(success) {
-        const result = await new Promise((resolve) => {
+    /**
+     * @private
+     * @param json
+     * @return
+     */
+    async basePromise(json) {
+        return await new Promise((resolve) => {
             setTimeout(() =>{
-                resolve(this.defaultTable);
+                resolve(json);
             }, 2000);
         });
+    }
+
+    async getDefaultTable(success) {
+        const result = await this.basePromise(this.defaultTable);
 
         success(result);
         return result;
     }
-    getCustomTable() {
 
+    async getCustomTable(success) {
+        const result = await this.basePromise(this.customTable);
+
+        success(result);
+        return result;
     }
 }
 
